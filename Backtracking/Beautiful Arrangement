@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    void solve(int curr,int n,bool vis[], int &ans)
+    {
+        bool flag=true;
+        
+        for(int i=1;i<=n;i++)
+            if(!vis[i])
+                flag=false;
+        
+        if(flag)
+        {
+            ans++;
+            return;
+        }
+        
+        for(int i=1;i<=n;i++)
+        {
+            if(!vis[i]&&(i%curr==0||curr%i==0))
+            {
+                vis[i]=true;
+                solve(curr+1,n,vis,ans);
+                vis[i]=false;
+            }
+        }
+    }
+    
+    int countArrangement(int n) {
+        
+        bool vis[20]={0};
+        int ans=0;
+        
+        solve(1,n,vis,ans);
+        
+        return ans;
+    }
+};
