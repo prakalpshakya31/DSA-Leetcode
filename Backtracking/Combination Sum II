@@ -1,0 +1,35 @@
+class Solution {
+public:
+    
+    void solve(int currsum,int idx, vector<int>&candidates, int target,vector<vector<int>>&res, vector<int>&v)
+    {
+        if(currsum==target)
+        {
+            res.push_back(v);
+            return;
+        }
+        
+        if(idx>=candidates.size()||currsum>target)
+            return;
+        
+        v.push_back(candidates[idx]),currsum+=candidates[idx];
+        solve(currsum,idx+1,candidates,target,res,v);
+        v.pop_back(),currsum-=candidates[idx];
+        
+        int i=idx;
+        while(idx<candidates.size()&&candidates[idx]==candidates[i])
+            idx++;
+        solve(currsum,idx,candidates,target,res,v);
+    }
+    
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int>>res;
+        vector<int>v;
+        
+        sort(candidates.begin(),candidates.end());
+        
+        solve(0,0,candidates,target,res,v);
+
+        return res;
+    }
+};
