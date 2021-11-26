@@ -1,0 +1,41 @@
+class Solution {
+public:
+    void solve(vector<int>&nums,set<vector<int>>&s,vector<int>&v,bool vis[])
+    {
+        bool flag=true;
+        for(int i=0;i<nums.size();i++)
+            if(!vis[i])
+                flag=false;
+        
+        if(flag)
+        {
+            s.insert(v);
+            return;
+        }
+        
+        for(int i=0;i<nums.size();i++)
+        {
+            if(!vis[i])
+            {
+                vis[i]=true;
+                v.push_back(nums[i]);
+                solve(nums,s,v,vis);
+                vis[i]=false;
+                v.pop_back();
+            }
+        }
+    }
+    
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        set<vector<int>>s;
+        vector<int>v;
+        bool vis[10]={0};
+        solve(nums,s,v,vis);
+        
+        vector<vector<int>>res;
+        for(auto it: s)
+            res.push_back(it);
+        
+        return res;
+    }
+};
