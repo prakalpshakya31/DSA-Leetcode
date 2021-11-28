@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+
+        // Find a subarray with k disinct characters and then with k-1 distinct characters, then subtract their lengths and add to answer.
+        
+        int n=nums.size();
+        
+        int small=0,big=0,s=0,b=0;
+        int freb[100000]={0},fres[100000]={0};
+        
+        int ans=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            freb[nums[i]]++,fres[nums[i]]++;
+            if(freb[nums[i]]==1)
+                big++;
+            if(fres[nums[i]]==1)
+                small++;
+            
+            while(big>k)
+            {
+                freb[nums[b]]--;
+                if(freb[nums[b]]==0)
+                    big--;
+                b++;
+            }
+            while(small>k-1)
+            {
+                fres[nums[s]]--;
+                if(fres[nums[s]]==0)
+                    small--;
+                s++;
+            }
+            
+            if(small==k-1&&big==k)
+                ans+=s-b;
+        }
+        
+        return ans;
+    }
+};
