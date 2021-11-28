@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int n=nums.size();
+        int low=0,mid=0,high=n-1;
+
+        // We will ensure that all elements from [0..low-1] are 0 and all elements from [high+1...n-1] are 2.
+        
+        while(mid<=high)
+        {
+            if(nums[mid]==0)
+                swap(nums[mid],nums[low]),low++,mid++;
+            else if(nums[mid]==2)
+                swap(nums[mid],nums[high]),high--;
+            else 
+                mid++;
+        }
+    }
+};
