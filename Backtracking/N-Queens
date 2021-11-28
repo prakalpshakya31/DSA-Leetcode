@@ -1,0 +1,61 @@
+class Solution {
+public:
+    
+    bool check(int row,int col,int n, vector<string>& v)
+    {
+        for(int i=0;i<n;i++)
+        {
+            if(v[i][col]=='Q')
+                return false;
+        }
+        int i=row,j=col;
+        while(i>=0&&j>=0)
+        {
+            if(v[i][j]=='Q')
+                return false;
+            i--,j--;
+        }
+        i=row,j=col;
+        while(i>=0&&j<n)
+        {
+            if(v[i][j]=='Q')
+                return false;
+            i--,j++;
+        }
+        
+        return true;
+    }
+    
+    void solve(int row,int n,vector<vector<string>>&res, vector<string>& v)
+    {
+        if(row==n)
+        {
+            res.push_back(v);
+            return;
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            if(check(row,i,n,v))  
+            {
+                v[row][i]='Q';
+                solve(row+1,n,res,v);
+                v[row][i]='.';
+            }
+        }
+    }
+    
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>>res;
+        vector<string>v;
+        for(int i=0;i<n;i++)
+        {
+            string s;
+            for(int j=0;j<n;j++)
+                s.push_back('.');
+            v.push_back(s);
+        }
+        solve(0,n,res,v);
+        return res;
+    }
+};
