@@ -1,0 +1,31 @@
+class Solution {
+public:
+    
+    int maxEvents(vector<vector<int>>& events) {
+        
+        sort(events.begin(),events.end());
+        
+        // Push events that are currently ongoing and remove the end events
+        // Take out the event with most recent ending time
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        
+        int j=0,ans=0;
+        
+        for(int i=1;i<=100000;i++)
+        {
+            while(j<events.size()&&events[j][0]<=i)
+                pq.push({events[j][1],events[j][0]}),j++;
+            
+            while(!pq.empty()&&pq.top().first<i)
+                pq.pop();
+            
+            if(!pq.empty())
+            {
+                ans++;
+                pq.pop();
+            }
+        }
+        
+        return ans;
+    }
+};
