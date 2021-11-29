@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minCost(string s, vector<int>& cost) {
+        
+        int ans=0;
+        
+        for(int i=0;i<s.size();i++)
+        {
+            int j=i;
+            int maxi=0,sum=0;
+            while(j<s.size()&&s[j]==s[i])
+                maxi=max(maxi,cost[j]),sum+=cost[j],j++;
+            j--;
+            
+            if(i!=j)
+                ans+=sum-maxi;
+            i=j;
+        }
+        
+        return ans;
+    }
+};
