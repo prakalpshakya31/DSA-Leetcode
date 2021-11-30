@@ -1,0 +1,25 @@
+class Solution {
+public:
+    
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+
+        // We count how many are non overlapping, then remove the extras
+        
+        sort(intervals.begin(),intervals.end());
+        
+        int keep=0;
+        
+        int last=100000;
+        
+        for(int i=intervals.size()-1;i>=0;i--)
+        {
+            if(intervals[i][1]<=last)
+            {
+                keep++;
+                last=intervals[i][0];
+            }
+        }
+        
+        return intervals.size()-keep;
+    }
+};
